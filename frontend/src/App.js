@@ -19,8 +19,8 @@ if (localStorage.jwtToken) {
   store.dispatch(setCurrentUser(decoded));
 }
 
-function App() {
-  return (
+function App() 
+  return 
     <div className="App">
       <MainNavigation />
       <div className="main">
