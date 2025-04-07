@@ -34,8 +34,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           /opt/sonar-scanner/bin/sonar-scanner \
-                 -Dsonar.projectKey=frontend-app \
-                 -Dsonar.projectName=frontend-app \
+                 -Dsonar.projectKey=ecommerce-store
+                 -Dsonar.projectName=ecommerce-store \
                  -Dsonar.sources=src \
                  -Dsonar.inclusions=**/*.js \
                  -Dsonar.sourceEncoding=UTF-8 \
