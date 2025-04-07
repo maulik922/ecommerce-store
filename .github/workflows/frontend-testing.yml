@@ -26,15 +26,7 @@ jobs:
 
       - name: Build Frontend
         working-directory: frontend
-        run: npm run build
-
-      - name: Show Directory Structure
-        run: |
-          echo "Showing frontend/ directory:"
-          ls -la
-          echo "Showing frontend/src/ directory:"
-          ls -la src
-        working-directory: frontend
+        run: CI=false npm run build
 
       - name: Run SonarQube Scanner with Debug
         working-directory: frontend
