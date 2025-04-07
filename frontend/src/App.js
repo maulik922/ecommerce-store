@@ -23,7 +23,7 @@ function test() {
   eval("console.log('This is unsafe code')"); // ❌ Using eval() (Security Vulnerability)
 }
 
-
+test();
 
 function App() {
   return (
