@@ -8,6 +8,7 @@ on:
 
 jobs:
   build-and-scan:
+    name: Build Frontend & Scan with SonarQube
     runs-on: [self-hosted, ecommerce]
 
     steps:
@@ -27,11 +28,19 @@ jobs:
         working-directory: frontend
         run: npm run build
 
-      - name: Run SonarQube Scanner
+      - name: Show Directory Structure
+        run: |
+          echo "Showing frontend/ directory:"
+          ls -la
+          echo "Showing frontend/src/ directory:"
+          ls -la src
+        working-directory: frontend
+
+      - name: Run SonarQube Scanner with Debug
         working-directory: frontend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           /opt/sonar-scanner/bin/sonar-scanner -X \
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
