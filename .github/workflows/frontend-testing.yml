@@ -32,6 +32,6 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          /opt/sonar-scanner/bin/sonar-scanner \
+          /opt/sonar-scanner/bin/sonar-scanner -X \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
