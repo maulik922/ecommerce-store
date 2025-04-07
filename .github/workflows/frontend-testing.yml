@@ -18,32 +18,27 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '12'
+          node-version: '16'
 
       - name: Install Dependencies
         working-directory: frontend
         run: npm install --unsafe-perm
 
-      - name: Build Frontend
+      - name: Build Frontend (ignore errors)
         working-directory: frontend
         continue-on-error: true
         run: CI=false npm run build
 
-      - name: Run ESLint and generate report (optional)
-        working-directory: frontend
-        run: |
-          npx eslint src --format json -o eslint-report.json || true
-
-      - name: Run SonarQube Scanner with Debug
+      - name: Run SonarQube Scanner
         working-directory: frontend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           /opt/sonar-scanner/bin/sonar-scanner -X \
-            -Dsonar.projectKey=maulik922_ecommerce-store_AZYP87w9kITEYXKVH2EQ \
+            -Dsonar.projectKey=your_project_key_here \
             -Dsonar.sources=src \
             -Dsonar.inclusions=**/*.js \
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
             -Dsonar.sourceEncoding=UTF-8 \
-            -Dsonar.eslint.reportPaths=eslint-report.json \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
