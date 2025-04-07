@@ -1,4 +1,4 @@
-name: Frontend Build & SonarQube Scan 
+name: Frontend Build & SonarQube Scan
 
 on:
   push:
@@ -18,9 +18,9 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '12'  
+          node-version: '12'
 
-      - name: Install Dependencies 
+      - name: Install Dependencies
         working-directory: frontend
         run: npm install --unsafe-perm
 
@@ -28,15 +28,10 @@ jobs:
         working-directory: frontend
         run: npm run build
 
-      - name: Run SonarQube Scanner
-        working-directory: frontend
+      - name: Run SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        with:
+          projectBaseDir: frontend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          /opt/sonar-scanner/bin/sonar-scanner \
-                 -Dsonar.projectKey=ecommerce-store \
-                 -Dsonar.sources=src \
-                 -Dsonar.inclusions=**/*.js \
-                 -Dsonar.sourceEncoding=UTF-8 \
-                 -Dsonar.host.url=http://192.168.0.104:9000 \
-                 -Dsonar.login=$SONAR_TOKEN
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
