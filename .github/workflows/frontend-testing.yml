@@ -34,7 +34,10 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           /opt/sonar-scanner/bin/sonar-scanner \
-            -Dsonar.projectKey=ecommerce \
-            -Dsonar.sources=src \
-            -Dsonar.host.url=http://192.168.0.104:9000 \
-            -Dsonar.login=$SONAR_TOKEN
+                 -Dsonar.projectKey=frontend-app \
+                 -Dsonar.projectName=frontend-app \
+                 -Dsonar.sources=src \
+                 -Dsonar.inclusions=**/*.js \
+                 -Dsonar.sourceEncoding=UTF-8 \
+                 -Dsonar.host.url=http://192.168.0.104:9000 \
+                 -Dsonar.login=$SONAR_TOKEN
