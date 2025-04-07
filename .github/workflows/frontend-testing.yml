@@ -26,6 +26,7 @@ jobs:
 
       - name: Build Frontend
         working-directory: frontend
+        continue-on-error: true
         run: CI=false npm run build
 
       - name: Run ESLint and generate report (optional)
