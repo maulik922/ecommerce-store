@@ -24,10 +24,14 @@ jobs:
         working-directory: frontend
         run: npm install --unsafe-perm
 
-      # 💡 Build step won't block next steps even if it fails
-      - name: Build Frontend (ignore warnings)
+      - name: Build Frontend
         working-directory: frontend
-        run: CI=false npm run build || true
+        run: CI=false npm run build
+
+      - name: Run ESLint and generate report (optional)
+        working-directory: frontend
+        run: |
+          npx eslint src --format json -o eslint-report.json || true
 
       - name: Run SonarQube Scanner with Debug
         working-directory: frontend
@@ -35,5 +39,10 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           /opt/sonar-scanner/bin/sonar-scanner -X \
+            -Dsonar.projectKey=maulik922_ecommerce-store_AZYP87w9kITEYXKVH2EQ \
+            -Dsonar.sources=src \
+            -Dsonar.inclusions=**/*.js \
+            -Dsonar.sourceEncoding=UTF-8 \
+            -Dsonar.eslint.reportPaths=eslint-report.json \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
