@@ -1,4 +1,4 @@
-name: Frontend Build & SonarQube Scan
+name: Frontend Build & SonarQube Scan 
 
 on:
   push:
