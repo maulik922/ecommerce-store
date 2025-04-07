@@ -19,8 +19,14 @@ if (localStorage.jwtToken) {
   store.dispatch(setCurrentUser(decoded));
 }
 
-function App() 
-  return 
+function test() {
+  eval("console.log('This is unsafe code')"); // ❌ Using eval() (Security Vulnerability)
+}
+
+
+
+function App() {
+  return (
     <div className="App">
       <MainNavigation />
       <div className="main">
