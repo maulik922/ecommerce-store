@@ -20,7 +20,7 @@ if (localStorage.jwtToken) {
 }
 
 
-function App() 
+function App() {
   return (
     <div className="App">
       <MainNavigation />
