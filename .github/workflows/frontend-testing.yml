@@ -2,7 +2,7 @@ name: SonarQube Code Scan
 
 on:
   workflow_run:
-    workflows: ["Frontend Build"]  # 👈 This name must match above!
+    workflows: ["Frontend Build"]  
     types:
       - completed
 
