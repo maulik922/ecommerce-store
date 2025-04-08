@@ -1,25 +1,22 @@
 name: SonarQube Code Scan
 
 on:
-  push:
-    branches:
-      - main
-      - master
-      - develop
-      - 'releases/**'
-  pull_request:
-    types: [opened, synchronize, reopened]
+  workflow_run:
+    workflows: ["Frontend Build"]  # 👈 This name must match above!
+    types:
+      - completed
 
 jobs:
   sonarqube:
     name: SonarQube Scan
-    runs-on: ecommerce
+    runs-on: [self-hosted, ecommerce]
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Required for accurate blame data
+          fetch-depth: 0
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5.1.0
