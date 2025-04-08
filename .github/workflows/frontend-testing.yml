@@ -31,7 +31,7 @@ jobs:
 
       - name: Run SonarQube Scanner
         working-directory: frontend
-        env:
+        env: 
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           /opt/sonar-scanner/bin/sonar-scanner -X \
