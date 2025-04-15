@@ -1,4 +1,5 @@
-name: Basic Workflow Dispatch Example
+name: Git Pull Only
+
 on:
   workflow_dispatch:
     inputs:
@@ -9,20 +10,26 @@ on:
         type: choice
         options:
           - prod
-          - qa
           - dev
       notify:
         description: 'Should workflow notify team?'
         required: true
         type: boolean
+
 jobs:
-  deploy:
+  pull-latest-code:
     runs-on: [self-hosted, ecommerce]
+    name: Pull Latest Code
+    environment: prod  # This will require approval
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Deploy
-        run: echo "Deploying to ${{ github.event.inputs.environment }} environment"
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: master  # Explicitly checkout master branch
+ 
+      - name: Pull Latest Code from Origin
+        run: git pull origin master | echo "Deploying to ${{ github.event.inputs.environment }} environment"
+      
       - name: Notify
         if: ${{ github.event.inputs.notify }}
         run: echo "Notifying of ${{ github.event.inputs.environment }} deployment"
