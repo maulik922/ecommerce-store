@@ -1,16 +1,16 @@
-name: Frontend Build
+name: Git Pull Only
 
 on:
-  push:
-    branches:
-      - master
   workflow_dispatch:
 
 jobs:
-  pull-frontend:
+  pull-latest-code:
     runs-on: [self-hosted, ecommerce]
-    name: Pull Latest Frontend Code
+    name: Pull Latest Code
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Pull Latest Code from Origin
+        run: git pull origin master
