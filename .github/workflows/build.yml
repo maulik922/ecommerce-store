@@ -7,11 +7,12 @@ jobs:
   pull-latest-code:
     runs-on: [self-hosted, ecommerce]
     name: Pull Latest Code
-
+    environment: prod  # This will require approval
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          ref: master  # Explicitly checkout master branch
 
-      - name: Pull Latest Code from Origin 
+      - name: Pull Latest Code from Origin
         run: git pull origin master
- 
