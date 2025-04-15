@@ -28,3 +28,4 @@ jobs:
         working-directory: frontend
         continue-on-error: true
         run: CI=false npm run build
+ 
