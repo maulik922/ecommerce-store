@@ -8,7 +8,7 @@ on:
         default: 'dev'
         type: choice
         options:
-          - production
+          - prod
           - qa
           - dev
       notify:
